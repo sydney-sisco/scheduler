@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from 'classnames';
-import DayListItem from "./DayListItem";
+import DayListItem from "components/DayListItem";
 
 export default function DayList(props) {
   
@@ -16,4 +16,4 @@ export default function DayList(props) {
   <ul>
     {dayListItems}
   </ul>);
-}
+};
