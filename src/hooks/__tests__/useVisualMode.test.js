@@ -37,7 +37,7 @@ test("useVisualMode should return to previous mode", () => {
   expect(result.current.mode).toBe(FIRST);
 });
 
-test.skip("useVisualMode should not return to previous mode if already at initial", () => {
+test("useVisualMode should not return to previous mode if already at initial", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
   act(() => result.current.back());
