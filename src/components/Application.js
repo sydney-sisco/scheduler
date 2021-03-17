@@ -54,9 +54,23 @@ const appointments = [
 
 export default function Application(props) {
 
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState('Monday');
+  // const [days, setDays] = useState([]);
+  // const [day, setDay] = useState('Monday');
 
+  // combine the state for day, days, and appointments into a state
+
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // you may put the line below, but will have to remove/comment hardcoded appointments variable
+    // appointments: {}
+  });
+
+  const setDay = day => setState({ ...state, day });
+  
+  // const setDays = days => setState({ ...state, days });
+  const setDays = days => setState(prev => ({ ...prev, days }));
+  
   useEffect(() => {
     const url = `/api/days`;
 
@@ -80,8 +94,8 @@ export default function Application(props) {
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
         <DayList
-          days={days}
-          day={day}
+          days={state.days}
+          day={state.day}
           setDay={setDay}
         />
       </nav>
