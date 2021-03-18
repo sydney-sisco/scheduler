@@ -20,7 +20,7 @@ export default function Application(props) {
 
   function bookInterview(id, interview) {
     //TODO: remove this
-    console.log(id, interview);
+    console.log('book:',id, interview);
 
     const appointment = {
       ...state.appointments[id],
@@ -32,7 +32,14 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    setState({...state, appointments});
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      console.log('axios res:', response);
+      setState({...state, appointments});
+    })
+    .catch((response) => {
+      console.log('catch:', response);
+    })
   }
 
   const schedule = appointments.map((appointment) => {
