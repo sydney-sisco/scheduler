@@ -42,6 +42,31 @@ export default function Application(props) {
     })
   }
 
+  function cancelInterview(id) {
+    // use the appointment id to find the right appointment slot and set it's interview data to null.
+    //TODO: remove this
+    console.log('cancel:', id);
+    
+    const appointment = {
+      ...state.appointments[id],
+      inverview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    return axios.put(`/api/appointments/${id}`, appointment)
+    .then((response) => {
+      console.log('axios res:', response);
+      setState({...state, appointments});
+    })
+    .catch((response) => {
+      console.log('catch:', response);
+    })
+  }
+
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -53,6 +78,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
