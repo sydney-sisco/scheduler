@@ -9,21 +9,22 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterview(state, interview) {
-
   if (!interview) {
     return null;
   }
 
-  console.log('interviewer from state:', state.interviewers[interview.interviewer]);
-  console.log('interview:', interview);
-
-  const returnObj = {
+  return {
     ...interview,
     interviewer: state.interviewers[interview.interviewer]
+  };
+}
 
+export function getInterviewersForDay(state, day) {
+  const dayObj = state.days.find(element => element.name === day)
+
+  if (!dayObj) {
+    return []
   }
 
-  console.log('returning:', returnObj);
-
-  return returnObj;
+  return dayObj.interviewers.map(appointmentID => state.interviewers[appointmentID]);
 }
