@@ -33,9 +33,6 @@ export default function Application(props) {
     .then((response) => {
       setState({...state, appointments});
     })
-    // .catch((response) => {
-    //   console.log('catch:', response);
-    // })
   }
 
   function cancelInterview(id) {
@@ -53,9 +50,6 @@ export default function Application(props) {
     .then((response) => {
       setState({...state, appointments});
     })
-    // .catch((response) => {
-    //   console.log('catch:', response);
-    // })
   }
 
   const schedule = appointments.map((appointment) => {

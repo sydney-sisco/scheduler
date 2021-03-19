@@ -29,26 +29,20 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVING);
-    props.bookInterview(props.id, interview)
-    .then(() => {
-      transition(SHOW);
-    })
-    .catch(() => {
-      console.log('catching save error');
-      transition(ERROR_SAVE);
-    })
+
+    props
+      .bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true))
   };
 
   function confirmDelete(){
-    transition(DELETING);
-    props.cancelInterview(props.id)
-    .then(() => {
-      transition(EMPTY);
-    })
-    .catch(() => {
-      console.log('catching delete error');
-      transition(ERROR_DELETE);
-    });
+    transition(DELETING, true);
+    
+    props
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true));
   };
 
   function tryDelete(){
