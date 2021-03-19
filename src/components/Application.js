@@ -19,9 +19,6 @@ export default function Application(props) {
   const interviewers = getInterviewersForDay(state, state.day);
 
   function bookInterview(id, interview) {
-    //TODO: remove this
-    console.log('book:',id, interview);
-
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -34,7 +31,6 @@ export default function Application(props) {
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then((response) => {
-      console.log('axios res:', response);
       setState({...state, appointments});
     })
     .catch((response) => {
@@ -43,23 +39,18 @@ export default function Application(props) {
   }
 
   function cancelInterview(id) {
-    // use the appointment id to find the right appointment slot and set it's interview data to null.
-    //TODO: remove this
-    console.log('cancel:', id);
-    
     const appointment = {
       ...state.appointments[id],
       inverview: null
     };
-
+    
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-
-    return axios.put(`/api/appointments/${id}`, appointment)
+    
+    return axios.delete(`/api/appointments/${id}`)
     .then((response) => {
-      console.log('axios res:', response);
       setState({...state, appointments});
     })
     .catch((response) => {
