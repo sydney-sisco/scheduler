@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function useApplicationData() {
   const [state, setState] = useState({
@@ -11,6 +10,25 @@ export default function useApplicationData() {
   });
 
   const setDay = day => setState({ ...state, day });
+
+  const updateSpots = (dayName, days, appointments) => {
+    const spots = days
+      .find(day => day.name === dayName)
+      .appointments
+      .reduce((spots, appointmentID)=>
+        !appointments[appointmentID].interview ? ++spots : spots
+        , -1); // -1 only works for saving,not deleting..
+    
+    // console.log('spots:', spots);
+
+    const newDays = days.map(days => {
+      if (days.name === dayName) {
+        return { ...days, spots }
+      }
+      return days;
+    })
+    return newDays;
+  };
 
   function bookInterview(id, interview) {
     const appointment = {
@@ -23,39 +41,10 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    const updateSpots = () => {
-      
-    };
-
-    console.log('state.days:', state.days);
-
-    const dayIndex = state.days.findIndex(day => day.name === state.day);
-    console.log('day index for', state.day, 'is', dayIndex);
-
-    const apptCount = 
-      getAppointmentsForDay(state, state.day)
-      .filter(day => day.interview !== null)
-      .length
-      + 1;
-    
-    console.log('booked appts for day:', apptCount);
-
-    const day = {
-      ...state.days[dayIndex],
-      spots: 5 - apptCount
-    }
-    console.log('updated day obj:', day);
-
-    const days = [...state.days];
-    console.log('days array:',days);
-
-    days[dayIndex].spots = apptCount;
-    console.log('days array:',days);
-
-
     return axios.put(`/api/appointments/${id}`, appointment)
     .then((response) => {
-      setState({...state, appointments});
+      const days = updateSpots(state.day, state.days, state.appointments);
+      setState({...state, appointments, days});
     })
   };
 
@@ -73,6 +62,9 @@ export default function useApplicationData() {
     return axios.delete(`/api/appointments/${id}`)
     .then((response) => {
       setState({...state, appointments});
+
+      // const days = updateSpots(state.day, state.days, state.appointments);
+      // setState({...state, appointments, days});
     })
   };
 
