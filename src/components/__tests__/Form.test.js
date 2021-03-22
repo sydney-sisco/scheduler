@@ -41,6 +41,7 @@ describe("Form", () => {
       />
     )
     /* 3. Click the save button */
+    fireEvent.click(getByText("Save"));
   
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
