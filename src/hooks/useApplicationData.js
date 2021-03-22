@@ -21,23 +21,41 @@ function reducer(state, action) {
         interviewers: action.interviewers
       }
     case SET_INTERVIEW:
-
       const appointment = {
         ...state.appointments[action.id],
-        interview: { ...action.interview }
+        interview: action.interview ? { ...action.interview } : null
       };
-  
+
       const appointments = {
         ...state.appointments,
         [action.id]: appointment
       };
 
-      return {...state, appointments}
+      const days = updateSpots(state.day, state.days, appointments);
+
+      return {...state, appointments, days}
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
       );
   }
+};
+
+const updateSpots = (dayName, days, appointments) => {
+  const spots = days
+    .find(day => day.name === dayName)
+    .appointments
+    .reduce((spots, appointmentID)=>
+      !appointments[appointmentID].interview ? ++spots : spots
+      , 0);
+
+  const newDays = days.map(days => {
+    if (days.name === dayName) {
+      return { ...days, spots }
+    }
+    return days;
+  })
+  return newDays;
 };
 
 export default function useApplicationData() {
@@ -63,11 +81,6 @@ export default function useApplicationData() {
   };
 
   function cancelInterview(id) {
-    const appointment = {
-      ...state.appointments[id],
-      inverview: null
-    };
-
     return axios.delete(`/api/appointments/${id}`)
     .then((response) => {
       dispatch({ type: SET_INTERVIEW, id, interview: null });
@@ -82,7 +95,6 @@ export default function useApplicationData() {
     ])
     .then((all) => {
       const [daysRes, appointmentsRes, interviewersRes] = all;
-      console.log(daysRes.data, appointmentsRes.data, interviewersRes.data);
 
       dispatch({ 
         type: SET_APPLICATION_DATA,
