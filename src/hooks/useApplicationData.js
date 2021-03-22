@@ -17,9 +17,7 @@ export default function useApplicationData() {
       .appointments
       .reduce((spots, appointmentID)=>
         !appointments[appointmentID].interview ? ++spots : spots
-        , -1); // -1 only works for saving,not deleting..
-    
-    // console.log('spots:', spots);
+        , 0);
 
     const newDays = days.map(days => {
       if (days.name === dayName) {
@@ -43,7 +41,7 @@ export default function useApplicationData() {
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then((response) => {
-      const days = updateSpots(state.day, state.days, state.appointments);
+      const days = updateSpots(state.day, state.days, appointments);
       setState({...state, appointments, days});
     })
   };
@@ -51,20 +49,18 @@ export default function useApplicationData() {
   function cancelInterview(id) {
     const appointment = {
       ...state.appointments[id],
-      inverview: null
+      interview: null
     };
     
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    
+
     return axios.delete(`/api/appointments/${id}`)
     .then((response) => {
-      setState({...state, appointments});
-
-      // const days = updateSpots(state.day, state.days, state.appointments);
-      // setState({...state, appointments, days});
+      const days = updateSpots(state.day, state.days, appointments);
+      setState({...state, appointments, days});
     })
   };
 
