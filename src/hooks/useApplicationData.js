@@ -88,6 +88,17 @@ export default function useApplicationData() {
   };
 
   useEffect(() => {
+
+    var exampleSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    
+    exampleSocket.onopen = function (event) {
+      exampleSocket.send("ping");
+    };
+
+    exampleSocket.onmessage = function (event) {
+      console.log('Message Received:', event.data);
+    }
+
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
