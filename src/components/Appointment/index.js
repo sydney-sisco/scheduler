@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "components/Appointment/styles.scss";
 
 import Header from "components/Appointment/Header.js"
@@ -45,15 +45,26 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_DELETE, true));
   };
 
+  //TODO: make this an anonymous function
   function tryDelete(){
     transition(CONFIRM);
   };
+
+  useEffect(() => {
+    if(props.interview && mode === EMPTY) {
+      transition(SHOW);
+    }
+
+    if(!props.interview && mode === SHOW) {
+      transition(EMPTY);
+    }
+  }, [props.interview, transition, mode])
 
   return (
     <article className="appointment">
       <Header time={props.time} />
         {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-        {mode === SHOW && (
+        {mode === SHOW && props.interview && (
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer}

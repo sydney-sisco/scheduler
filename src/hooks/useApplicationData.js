@@ -96,7 +96,13 @@ export default function useApplicationData() {
     };
 
     exampleSocket.onmessage = function (event) {
-      console.log('Message Received:', event.data);
+      const data = JSON.parse(event.data);
+      console.log('Message Received:', JSON.parse(event.data));
+
+      if (data.type === 'SET_INTERVIEW') {
+        console.log('setting interview');
+        dispatch({ type: SET_INTERVIEW, id: data.id, interview: data.interview });
+      }
     }
 
     Promise.all([
