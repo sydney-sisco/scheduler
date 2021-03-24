@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 /*
 useVisualMode manages the display mode of each appointment.
