@@ -7,7 +7,7 @@ Interview Scheduler is a scheduling app built in React. Data is saved to a Postg
 A demonstration of the application flow:
 ![Application animation](https://github.com/sydney-sisco/scheduler/blob/master/docs/appointment.gif?raw=true)
 
-A demonstration of websockets. When one client makes a change, the server uses websockets to notify all connected clients of the change.
+A demonstration of websockets. When one client makes a change, the server uses a websocket connection to notify all connected clients of the change.
 ![websocket animation](https://github.com/sydney-sisco/scheduler/blob/master/docs/websockets.gif?raw=true)
 
 ## Setup
