@@ -1,5 +1,10 @@
 import React from "react";
 
+/*
+Header component is shown above each slot,
+indicating the time of the appointment.
+*/
+
 export default function Header(props) {
   return (
     <header className="appointment__time">

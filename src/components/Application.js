@@ -6,6 +6,10 @@ import Appointment from "components/Appointment";
 import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
+/*
+The Application component is the main component of the app.
+This component displays the sidebar (DayList) and each Appointment.
+*/
 
 export default function Application(props) {
   const {

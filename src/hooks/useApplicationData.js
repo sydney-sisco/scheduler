@@ -39,17 +39,11 @@ export default function useApplicationData() {
   useEffect(() => {
 
     var exampleSocket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
-    
-    // exampleSocket.onopen = function (event) {
-    //   exampleSocket.send("ping");
-    // };
 
     exampleSocket.onmessage = function (event) {
       const data = JSON.parse(event.data);
-      // console.log('Message Received:', JSON.parse(event.data));
 
       if (data.type === 'SET_INTERVIEW') {
-        // console.log('setting interview');
         dispatch({ type: SET_INTERVIEW, id: data.id, interview: data.interview });
       }
     }

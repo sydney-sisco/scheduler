@@ -3,6 +3,12 @@ import classNames from 'classnames';
 
 import "components/DayListItem.scss";
 
+/*
+DayListItem component represents one entry
+in the sidebar of the app. It displays the
+name of the day, "Monday", and the number of 
+spots remaining for that day.
+*/
 
 export default function DayListItem(props) {
 

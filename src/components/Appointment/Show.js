@@ -1,5 +1,11 @@
 import React from "react";
 
+/*
+Show component shows the details of a
+booked appointment. It has buttons that can
+be used to edit or delete an appointment.
+*/
+
 export default function Show(props) {
   return (
     <main className="appointment__card appointment__card--show">

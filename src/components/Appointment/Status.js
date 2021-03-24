@@ -1,5 +1,11 @@
 import React from "react";
 
+/*
+Status component is shown when asyncronous 
+actions are occuring, such as saving changes
+to the server.
+*/
+
 export default function Confirm(props) {
   return (
     <main className="appointment__card appointment__card--status">

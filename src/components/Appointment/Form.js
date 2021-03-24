@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
+/*
+Form component is shown when the user attempts 
+to add or edit an appointment.
+*/
+
 export default function Form(props) {
 
   const [name, setName] = useState(props.name || '');

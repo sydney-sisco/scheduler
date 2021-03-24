@@ -1,5 +1,10 @@
 import React from "react";
 
+/*
+Error component is shown when there is an
+error saving changes to the server.
+*/
+
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">

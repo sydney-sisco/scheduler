@@ -2,6 +2,12 @@ import React from "react";
 import classNames from 'classnames';
 import "components/InterviewerListItem.scss";
 
+/*
+InterviewerListItem component displays the avatar
+(and name, if selected) of an individual interviewer.
+It is displayed within the InterviewerList component.
+*/
+
 export default function InterviewerListItem(props) {
 
   const interviewerClass = classNames('interviewers__item', {

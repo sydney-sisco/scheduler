@@ -1,24 +1,30 @@
 import React, {useEffect} from 'react';
 import "components/Appointment/styles.scss";
 
-import Header from "components/Appointment/Header.js"
-import Show from "components/Appointment/Show"
-import Empty from "components/Appointment/Empty"
-import Form from "components/Appointment/Form"
-import Status from "components/Appointment/Status"
-import Confirm from "components/Appointment/Confirm"
-import Error from "components/Appointment/Error"
-import useVisualMode from "hooks/useVisualMode";
+import Header         from "components/Appointment/Header.js"
+import Show           from "components/Appointment/Show"
+import Empty          from "components/Appointment/Empty"
+import Form           from "components/Appointment/Form"
+import Status         from "components/Appointment/Status"
+import Confirm        from "components/Appointment/Confirm"
+import Error          from "components/Appointment/Error"
+import useVisualMode  from "hooks/useVisualMode";
 
-const EMPTY = "EMPTY";
-const SHOW = "SHOW";
-const CREATE = "CREATE";
-const SAVING = "SAVING";
-const DELETING = "DELETING";
-const CONFIRM = "CONFIRM";
-const EDIT = "EDIT";
-const ERROR_SAVE = "ERROR_SAVE";
-const ERROR_DELETE = "ERROR_DELETE";
+const EMPTY         = "EMPTY";
+const SHOW          = "SHOW";
+const CREATE        = "CREATE";
+const SAVING        = "SAVING";
+const DELETING      = "DELETING";
+const CONFIRM       = "CONFIRM";
+const EDIT          = "EDIT";
+const ERROR_SAVE    = "ERROR_SAVE";
+const ERROR_DELETE  = "ERROR_DELETE";
+
+/*
+Appointment component manages the displaying of individual appointments.
+An appointment transitions between various modes as it is created,
+edited, or deleted. 
+*/
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
@@ -45,11 +51,6 @@ export default function Appointment(props) {
       .catch(() => transition(ERROR_DELETE, true));
   };
 
-  //TODO: make this an anonymous function
-  function tryDelete(){
-    transition(CONFIRM);
-  };
-
   useEffect(() => {
     if(props.interview && mode === EMPTY) {
       transition(SHOW);
@@ -68,7 +69,7 @@ export default function Appointment(props) {
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer}
-            onDelete={tryDelete}
+            onDelete={() => transition(CONFIRM)}
             onEdit={()=>transition(EDIT)}
           />
         )}

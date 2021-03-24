@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import InterviewerListItem from "components/InterviewerListItem";
 import "components/InterviewerList.scss";
 
+/*
+InterviewerList component shows a list of interviewers.
+This component is displayed on the Form component to
+allow the user to select an interviewer.
+*/
+
 export default function InterviewerList(props) {
 
   const interviewers = props.interviewers.map(interviewer => <InterviewerListItem
