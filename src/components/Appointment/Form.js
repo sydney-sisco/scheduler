@@ -18,6 +18,11 @@ export default function Form(props) {
       return;
     }
 
+    if (!interviewer) {
+      setError("You must select an interviewer");
+      return;
+    }
+
     setError("");
     props.onSave(name, interviewer);
   }
