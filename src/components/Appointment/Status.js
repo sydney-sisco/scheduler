@@ -1,7 +1,7 @@
 import React from "react";
 
 /*
-Status component is shown when asyncronous 
+Status component is shown when asynchronous 
 actions are occuring, such as saving changes
 to the server.
 */
@@ -16,5 +16,5 @@ export default function Confirm(props) {
       />
       <h1 className="text--semi-bold">{props.message}</h1>
     </main>
-  );
+  )
 }
