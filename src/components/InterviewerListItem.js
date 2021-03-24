@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from 'classnames';
+import classNames from "classnames";
 import "components/InterviewerListItem.scss";
 
 /*
@@ -9,9 +9,8 @@ It is displayed within the InterviewerList component.
 */
 
 export default function InterviewerListItem(props) {
-
-  const interviewerClass = classNames('interviewers__item', {
-    'interviewers__item--selected': props.selected,
+  const interviewerClass = classNames("interviewers__item", {
+    "interviewers__item--selected": props.selected,
   });
 
   return (
