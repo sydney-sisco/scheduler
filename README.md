@@ -2,6 +2,8 @@
 
 Interview Scheduler is a scheduling app built in React. Data is saved to a PostgreSQL database and updates are received from the server using websockets. 
 
+### Try out the app [here](https://scheduler.sydsis.co/)!
+
 ![Application screenshot](https://github.com/sydney-sisco/scheduler/blob/master/docs/application.png?raw=true)
 
 A demonstration of the application flow:
